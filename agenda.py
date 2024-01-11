@@ -40,6 +40,7 @@ layout = [
     [sg.Button("Adicionar", key="ADD", size=(10, 1))],
     [sg.Button("Remover", key="REMOVE", size=(10, 1))],
     [sg.Button("Editar", key="EDIT", size=(10, 1))],
+    [sg.Button("Salvar", key="SAVE", size=(10, 1))],
     [sg.Listbox(values=[], key="EVENTS", size=(80, 10), enable_events=True)]
 ]
 
@@ -55,6 +56,11 @@ while True:
         remover_evento(values["EVENT_NAME"])
     elif event == "EDIT":
         editar_evento(values["EVENT_NAME"], values["NEW_EVENT_NAME"], values["EVENT_DATE"], values["EVENT_END"])
+    elif event == "SAVE":
+        with open("agenda.txt", "w") as file:
+            for operacao in operacoes:
+                file.write(operacao + "\n")
+        sg.popup("Arquivo salvo com sucesso")
 
 
 window.close()
