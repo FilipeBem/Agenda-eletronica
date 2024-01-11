@@ -31,6 +31,8 @@ layout = [
     [sg.Text("Agenda Eletrônica", size=(30, 1), justification="center", font=("Helvetica", 27))],
     [sg.Text("Digite o nome do evento  ", size=(20, 0), key="ADD_EVENT", justification="center")],
     [sg.Input("", key="EVENT_NAME", size=(40, 1))],
+    [sg.Text("Digite o nome do novo evento               ", size=(30, 0), key="ADD_EVENT", justification="center")],
+    [sg.Input("", key="NEW_EVENT_NAME", size=(40, 1))],
     [sg.Text("Digite o início do evento (dd/mm/aa)      ", size=(30, 0), key="ADD_EVENT", justification="center")],
     [sg.Input("", key="EVENT_DATE", size=(10, 1))],
     [sg.Text("Digite o fim do evento (dd/mm/aa)        ", size=(30, 0), key="ADD_EVENT", justification="center")],
@@ -52,7 +54,7 @@ while True:
     elif event == "REMOVE":
         remover_evento(values["EVENT_NAME"])
     elif event == "EDIT":
-        editar_evento(values["EVENT_NAME"], "Novo Evento", values["EVENT_DATE"], values["EVENT_END"])
+        editar_evento(values["EVENT_NAME"], values["NEW_EVENT_NAME"], values["EVENT_DATE"], values["EVENT_END"])
 
 
 window.close()
