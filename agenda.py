@@ -3,17 +3,14 @@ import PySimpleGUI as sg
 operacoes = []
 
 def adicionar_evento(evento, data_inicio, data_fim):
-    # Verifica se o evento já existe na agenda
     if any(evento in operacao for operacao in operacoes):
         print(f"O evento '{evento}' já existe na agenda")
     else:
-        # Adiciona o evento à agenda
         print(f"Evento '{evento}' adicionado à agenda de {data_inicio} até {data_fim}")
-        operacoes.append(f"Evento '{evento}' adicionado à agenda de {data_inicio} até {data_fim}")
+        operacoes.append(f"{evento} - {data_inicio} até {data_fim}")
         window["EVENTS"].update(values=operacoes)
 
 def remover_evento(evento):
-    # Verifica se o evento existe na agenda antes de tentar remover
     if any(evento in operacao for operacao in operacoes):
         operacoes[:] = [operacao for operacao in operacoes if evento not in operacao]
         window["EVENTS"].update(values=operacoes)
@@ -22,13 +19,11 @@ def remover_evento(evento):
         print(f"O evento '{evento}' não está na agenda")
 
 def editar_evento(evento_antigo, evento_novo, data_inicio, data_fim):
-    # Edita o evento na agenda
-    events = window["EVENTS"].get()
-    if evento_antigo in events:
-        index = events.index(evento_antigo)
-        events[index] = f"{evento_novo} - {data_inicio} até {data_fim}"
-        operacoes.append(f"Evento '{evento_antigo}' editado para '{evento_novo}' na agenda de {data_inicio} até {data_fim}")
-        window["EVENTS"].update(values=operacoes)  # Update the Listbox with the operacoes list
+    if any(evento_antigo in operacao for operacao in operacoes):
+        index = [i for i, s in enumerate(operacoes) if evento_antigo in s][0]
+        operacoes[index] = f"{evento_novo} - {data_inicio} até {data_fim}"
+        window["EVENTS"].update(values=operacoes)
+        print(f"Evento '{evento_antigo}' editado para '{evento_novo}' na agenda de {data_inicio} até {data_fim}")
     else:
         print(f"O evento '{evento_antigo}' não está na agenda")
 
